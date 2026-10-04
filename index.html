@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaacDeco - Herrería a Medida</title>
+    <style>
+        :root {
+            --primary: #ff9800;
+            --dark: #121212;
+            --surface: #1e1e1e;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --accent: #25d366;
+            --mp-blue: #009ee3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.2rem; margin-top: 5px; }
+
+        /* Contenedor del video superior */
+        .video-header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .video-header video {
+            width: 100%;
+            max-height: 420px;
+            border-radius: 8px;
+            background-color: #000;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.9; }
+
+        .btn-calc {
+            background-color: var(--primary);
+            color: #121212;
+            margin-top: 10px;
+        }
+
+        .resultado-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #252525;
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: bold;
+            display: none;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--accent);
+            color: white;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .btn-mp {
+            background-color: var(--mp-blue);
+            color: white;
+            margin-top: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>DaacDeco - Puertas Pantográficas</h1>
+
+    <!-- VIDEO EN LA PARTE SUPERIOR (AUTOPLAY EN MUTE CON CONTROLES) -->
+    <div class="video-header">
+        <video controls autoplay loop muted playsinline preload="auto">
+            <source src="video.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+        </video>
+    </div>
+
+    <!-- FORMULARIO DE COTIZACIÓN -->
+    <div class="form-group">
+        <label for="alto">Alto (metros):</label>
+        <input type="number" id="alto" step="0.01" placeholder="Ej: 0.62">
+    </div>
+
+    <div class="form-group">
+        <label for="ancho">Ancho (metros):</label>
+        <input type="number" id="ancho" step="0.01" placeholder="Ej: 1.50">
+    </div>
+
+    <div class="form-group">
+        <label for="color">Color de terminación:</label>
+        <select id="color">
+            <option value="Negro Mate">Negro Mate</option>
+            <option value="Negro Brillante">Negro Brillante</option>
+            <option value="Gris Grafito">Gris Grafito</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Óxido / Estilo Industrial">Óxido / Estilo Industrial</option>
+        </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+        <input type="checkbox" id="manijon">
+        <label for="manijon" style="margin-bottom: 0;">Agregar manijón artesanal (+ $90.000)</label>
+    </div>
+
+    <button class="btn btn-calc" onclick="calcularPresupuesto()">Calcular Presupuesto</button>
+
+    <div id="resultado" class="resultado-box"></div>
+
+    <!-- Botón WhatsApp -->
+    <button id="whatsappBtn" class="btn btn-whatsapp" onclick="enviarWhatsApp()">
+        Solicitar por WhatsApp
+    </button>
+
+    <!-- Botón Mercado Pago -->
+    <a id="mpBtn" href="https://link.mercadopago.com.ar/daacdecoherreria" target="_blank" class="btn btn-mp">
+        Pagar con Mercado Pago
+    </a>
+</div>
+
+<script>
+    function calcularPresupuesto() {
+        const alto = parseFloat(document.getElementById('alto').value) || 0;
+        const ancho = parseFloat(document.getElementById('ancho').value) || 0;
+        const color = document.getElementById('color').value;
+        const tieneManijon = document.getElementById('manijon').checked;
+
+        if (alto <= 0 || ancho <= 0) {
+            alert('Por favor ingresa medidas válidas de alto y ancho.');
+            return;
+        }
+
+        const m2 = alto * ancho;
+        const precioBaseM2 = 180000;
+        let total = m2 * precioBaseM2;
+
+        if (tieneManijon) {
+            total += 90000;
+        }
+
+        const resultadoDiv = document.getElementById('resultado');
+        resultadoDiv.innerText = `Presupuesto Estimado: $${total.toLocaleString('es-AR')}`;
+        resultadoDiv.style.display = 'block';
+
+        document.getElementById('whatsappBtn').style.display = 'block';
+        document.getElementById('mpBtn').style.display = 'block';
+
+        window.datosCotizacion = {
+            alto,
+            ancho,
+            color,
+            manijon: tieneManijon ? 'Sí' : 'No',
+            total
+        };
+    }
+
+    function enviarWhatsApp() {
+        const datos = window.datosCotizacion;
+        if (!datos) return;
+
+        const mensaje = `Hola DaacDeco, quiero solicitar un presupuesto con las siguientes características:%0A%0A- Medidas: ${datos.alto}m x ${datos.ancho}m%0A- Color: ${datos.color}%0A- Manijón: ${datos.manijon}%0A- Presupuesto estimado: $${datos.total.toLocaleString('es-AR')}%0A%0A¿Cómo podemos avanzar?`;
+        
+        // Reemplaza con tu número de teléfono real
+        const telefono = '5493854000000';
+        window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
