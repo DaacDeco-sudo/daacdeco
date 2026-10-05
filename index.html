@@ -143,14 +143,14 @@
             background-color: var(--accent);
             color: white;
             margin-top: 15px;
-            display: none;
+            display: block;
         }
 
         .btn-mp {
             background-color: var(--mp-blue);
             color: white;
             margin-top: 12px;
-            display: none;
+            display: block;
         }
     </style>
 </head>
@@ -169,12 +169,12 @@
 
     <!-- FORMULARIO DE COTIZACIÓN -->
     <div class="form-group">
-        <label for="alto">Alto (metros):</label>
+        <label for="alto">Alto (centimetros):</label>
         <input type="number" id="alto" step="0.01" placeholder="Ej: 0.62">
     </div>
 
     <div class="form-group">
-        <label for="ancho">Ancho (metros):</label>
+        <label for="ancho">Ancho (centimetros):</label>
         <input type="number" id="ancho" step="0.01" placeholder="Ej: 1.50">
     </div>
 
@@ -222,7 +222,7 @@
   }
 
   const m2 = (alto * ancho) / 10000;
-  const precioBaseM2 = 560000;
+  const precioBaseM2 = 790000;
   let total = m2 * precioBaseM2;
 
   if (tieneManijon) {
