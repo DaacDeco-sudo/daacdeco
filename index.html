@@ -210,6 +210,41 @@
 </div>
 
 <script>
+    function calcularPresupuesto() {
+  const alto = parseFloat(document.getElementById('alto').value) || 0;
+  const ancho = parseFloat(document.getElementById('ancho').value) || 0;
+  const color = document.getElementById('color').value;
+  const tieneManijon = document.getElementById('manijon').checked;
+
+  if (alto <= 0 || ancho <= 0) {
+    alert('Por favor ingresa medidas válidas de alto y ancho.');
+    return;
+  }
+
+  const m2 = (alto * ancho) / 10000;
+  const precioBaseM2 = 560000;
+  let total = m2 * precioBaseM2;
+
+  if (tieneManijon) {
+    total += 90000;
+  }
+
+  const resultadoDiv = document.getElementById('resultado');
+  resultadoDiv.innerText = `Presupuesto Estimado: $${total.toLocaleString('es-AR')}`;
+  resultadoDiv.style.display = 'block';
+
+  document.getElementById('whatsappBtn').style.display = 'block';
+  document.getElementById('mpBtn').style.display = 'block';
+
+  window.datosCotizacion = {
+    alto,
+    ancho,
+    color,
+    manijon: tieneManijon ? 'Sí' : 'No',
+    total
+  };
+}
+
     
 
   const resultadoDiv = document.getElementById('resultado');
