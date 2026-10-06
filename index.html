@@ -244,6 +244,31 @@
     total
   };
 }
+  let precioBaseM2 = 0;
+  let nombreProducto = '';
+
+  switch (tipo) {
+    case 'pantografica':
+      precioBaseM2 = 470000;
+      nombreProducto = 'Puerta Pantográfica';
+      break;
+    case 'bajo_corrediza':
+      precioBaseM2 = 490000;
+      nombreProducto = 'Bajo Parrilla Corrediza';
+      break;
+    case 'bajo_pivotante':
+      precioBaseM2 = 490000;
+      nombreProducto = 'Bajo Parrilla Pivotante';
+      break;
+    case 'bajo_bisagra':
+      precioBaseM2 = 490000;
+      nombreProducto = 'Bajo Parrilla Bisagras';
+      break;
+    case 'fogonero':
+      precioBaseM2 = 490000;
+      nombreProducto = 'Puerta para Fogonero';
+      break;
+  }
 
     
 
