@@ -222,7 +222,7 @@
   }
 
   const m2 = (alto * ancho) / 10000;
-  const precioBaseM2 = 790000;
+let precioBaseM2 = 0;
   let total = m2 * precioBaseM2;
 
   if (tieneManijon) {
@@ -306,15 +306,21 @@
     }
 
     function enviarWhatsApp() {
-        const datos = window.datosCotizacion;
-        if (!datos) return;
+  const datos = window.datosCotizacion;
+  if (!datos) return;
 
-        const mensaje = `Hola DaacDeco, quiero solicitar un presupuesto con las siguientes características:%0A%0A- Medidas: ${datos.alto}m x ${datos.ancho}m%0A- Color: ${datos.color}%0A- Manijón: ${datos.manijon}%0A- Presupuesto estimado: $${datos.total.toLocaleString('es-AR')}%0A%0A¿Cómo podemos avanzar?`;
-        
-        // Reemplaza con tu número de teléfono real
-        const telefono = '5493854687997';
-        window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
-    }
+  const mensaje = `Hola DaacDeco, quiero solicitar un presupuesto formal:%0A` +
+    `- Producto: ${datos.producto}%0A` +
+    `- Alto: ${datos.alto} cm%0A` +
+    `- Ancho: ${datos.ancho} cm%0A` +
+    `- Color: ${datos.color}%0A` +
+    `- Manijón inox: ${datos.manijon}%0A` +
+    `- Estimado: $${Math.round(datos.total).toLocaleString('es-AR')}`;
+
+  const telefono = '5493854687997';
+  window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+}
+
 </script>
 
 <div style="margin-top: 25px; text-align: center;">
